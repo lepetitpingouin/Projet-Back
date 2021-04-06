@@ -1,6 +1,6 @@
 module.exports = class List {
-    constructor(shop) {
-        this.shop = shop
+    constructor(label) {
+        this.label = label
         this.archived = false
         this.items = []
         this.date = new Date()

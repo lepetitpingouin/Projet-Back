@@ -5,9 +5,9 @@ module.exports = class ListService {
         this.dao = new ListDAO(db)
     }
     isValid(list) {
-        if (list.shop != undefined) {
-            list.shop = list.shop.trim()
-            if (list.shop === "") return false
+        if (list.label !== undefined) {
+            list.label = list.label.trim()
+            if (list.label === "") return false
             if (list.date != null) {
                 if (list.date instanceof String) {
                     list.date = new Date(list.date)
