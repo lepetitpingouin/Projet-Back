@@ -1,7 +1,7 @@
 const List = require('./list')
 const Item = require('./item')
 
-module.exports = (listservice,itemservice) => {
+module.exports = (listservice, itemservice) => {
     return new Promise(async (resolve, reject) => {
         try {
             await listservice.dao.db.query("CREATE TABLE list(id SERIAL PRIMARY KEY, label TEXT, date DATE, archived BOOLEAN )")
@@ -9,12 +9,14 @@ module.exports = (listservice,itemservice) => {
 
 
             for (let i = 0; i < 5; i++) {
-                await listservice.dao.insert(new List("List: " + i, new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),false
+                await listservice.dao.insert(new List("List " + (i+1), new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)), false
                 ))
             }
 
             for (let i = 1; i < 6; i++) {
-                await itemservice.dao.insert(new Item("Label" + i, 2*i, 1))
+                for (let y = 1; y < 5; y++) {
+                    await itemservice.dao.insert(new Item("Label" + i, 2 * i, y))
+                }
             }
         } catch (e) {
             if (e.code === "42P07") { // TABLE ALREADY EXISTS https://www.postgresql.org/docs/8.2/errcodes-appendix.html
